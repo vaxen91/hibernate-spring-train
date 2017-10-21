@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		
+	<!-- Component Scan -->
+	 <context:component-scan base-package="com.vaxen"/>
+	 
+	<!-- Load properties File -->
+	<bean id="Properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name='location' value='classpath:char-properties.txt'/>
+	</bean>
+
+	<!-- My char bean -->
+	<bean id="myChar" class="com.vaxen.springdemo.CharacterImpl"
+		destroy-method="testDestroy" init-method="testInit">
+		<constructor-arg ref="mageClass" name="classType"></constructor-arg>
+		<constructor-arg value="${char.name}" name="charName"></constructor-arg>
+		<property name="age" value="${char.age}"></property>
+	</bean>
+
+
+	<bean id="mageClass" class="com.vaxen.springdemo.Mage"></bean>
+
+</beans>
